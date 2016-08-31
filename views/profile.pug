@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .container
+        h1 Twitter
+        .row
+            .column
+                p id:
+                p token:
+                p username:
+                p displayName:
+            .column
+                p= user.twitter.id
+                p= user.twitter.token
+                p= user.twitter.username
+                p= user.twitter.displayName
+        

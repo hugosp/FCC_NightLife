@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #292929;
+    color: #8F9E8B;
+}
+
+.container {
+    top: 100px;
+}
+
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+
+
+button {
+    background-color: #5B7876;
+}
+
+.lista {
+    background-color: #8F9E8B;
+    border-radius: 5px;
+    list-style: none;
+    
+    max-width: 550px;
+}
+
+a, a:hover , a:visited {
+    color: #2F343B;
+}
+
+img {
+    padding: 5px;
+}
+
+.top {
+    color: #5B7876;
+    font-size: 120px;
+    height: 100px;
+    margin-bottom: 30px;
+
+    padding-left: 20px;
+}
+
+.imgholder , .txtholder {
+    float:left;
+    color: #2F343B;
+}
+
+.txtholder {
+    max-width: 300px;
+}
+
+.checkin {
+    float: right;
+}
+
+.clear {
+    clear:both;
+}
+
+h5 {
+    margin-bottom: 2px;
+}
+
+
+
+
+/* nav */
+.profile {
+    margin-top: 6px;
+    border: 1px solid white;
+}
+
+ul.nav {
+    width: 100%;
+    z-index: 999;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position : fixed;
+    height: 60px;
+}
+ul.nav li { float:left; }
+
+ul.nav li a {
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.nav li a:hover {background-color: #555;}

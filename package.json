@@ -1,7 +1,6 @@
 {
   "name": "fccnightlife",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,8 +9,27 @@
   "author": "Hewgo",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "mongoose": "^4.5.10",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4",
+    "pug": "^2.0.0-beta5",
     "yelp": "^1.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugosp/FCC_NightLife.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hugosp/FCC_NightLife/issues"
+  },
+  "homepage": "https://github.com/hugosp/FCC_NightLife#readme",
+  "description": ""
 }

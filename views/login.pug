@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .container
+        center
+            h1 Login Using
+
+            .error
+                if(error)
+                    h2= message
+
+            .row
+                .column.column-30
+                .column
+                    a(href='/auth/twitter')
+                        button Twitter
+                .column
+                    a(href='/auth/google/')
+                        button Google
+                .column.column-30
