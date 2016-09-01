@@ -2,14 +2,14 @@ extends layout
 
 block content
     include ../public/template.html
-    .top
-        h1 NightLife
     .container
         .row
-            .column
-                input(type="text" id="location")
-            .column
-                button(id="search") Search
+            .column.column-80
+                input(type="text" id="location") 
+            .column.column-20
+                button(id="gps") GPS
+                button.float-right(id="search") Search
+                
         .row
             .column
                 ul#result

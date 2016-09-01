@@ -1,14 +1,14 @@
 <script id="template" type="text/template">
-  <li class="lista">
-    <div class="imgholder">
+  <li class="card">
+    <div class="imgholder float-left">
         <img src="{{imgurl}}">
     </div>
-    <div class="txtholder">
+    <div class="txtholder float-left">
       <a href="{{url}}"><h5>{{name}}</h5></a>
       <img src="{{rating}}">
       <p>{{phone}}</p>
     </div>
-    <div class="checkin"><button id="{{buttId}}">0 going</button></div>
-    <div class="clear"></div>
+    <div class="checkin float-right"><button id="{{buttId}}">0 going</button></div>
+    <div class="clearfix"></div>
   </li>
 </script>

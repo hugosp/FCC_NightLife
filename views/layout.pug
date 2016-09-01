@@ -10,19 +10,18 @@ html
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/milligram/1.1.0/milligram.min.css')
         link(rel='stylesheet', href='/public/style.css')
     body
-        ul.nav
-            .left
-                li
-                    a(href='/') Home
-            .right
-                if(user)
+        nav
+            ul.nav
+                .float-left
                     li
-                        //img.profile(src=user.twitter.photos[0].value)
-                    li
-                        a(href='/profile')= user.twitter.username
-                    li
-                        a(href='/logout') Logout
-                else
-                    li
-                        a(href='/login') Login
+                        a(href='/') Home
+                .float-right
+                    if(user)
+                        li
+                            a(href='/profile')= user.twitter.username
+                        li
+                            a(href='/logout') Logout
+                    else
+                        li
+                            a(href='/login') Login
         block content
