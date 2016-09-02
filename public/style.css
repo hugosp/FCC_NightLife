@@ -3,7 +3,7 @@ body {
 }
 
 .container{
-    padding-top:75px;
+    padding-top:80px;
 }
 
 #result {
@@ -11,10 +11,11 @@ body {
 }
 
 .card {
+    background-color: #F4F5F6;
     list-style: none;
     border: 1px solid darkgrey;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     padding: 10px;
     margin-bottom: 20px;

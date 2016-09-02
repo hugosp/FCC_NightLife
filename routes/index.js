@@ -11,18 +11,20 @@ module.exports = function(app, passport) {
     });
 
     app.get('/api/place/:location', function(req, res, next) {    
-        yelp.search({ term: 'bar', location: req.params.location }).then(function (data) {
-            res.json(data);
-        }).catch(function (err) {
-            res.send(err);
+        Bar.find({ }, function(err, ids) {
+            if(err) throw err;
+            yelp.search({ term: 'bar', location: req.params.location }).then(function (data) {
+                data.attends = ids;
+                res.json(data);
+            }).catch(function (err) {
+                res.send(err);
+            });
         });
     });
 
     app.get('/api/gps/:location', function(req, res, next) {    
         Bar.find({ }, function(err, ids) {
             if(err) throw err;
-                
-            console.log(req.params.location);
             yelp.search({ term: 'bar', ll: req.params.location }).then(function (data) {
                 data.attends = ids;
                 res.json(data);
@@ -33,26 +35,33 @@ module.exports = function(app, passport) {
     });
 
 
-    app.get('/api/going/:id',isLoggedIn, function(req, res,next) {
-        
-        var query = {'barId':req.params.id};
-        var update = {$push: {'users': {'userId': req.user.twitter.id}}};
-        
-        Bar.findOneAndUpdate(query,update,function(err,docs) {
-	        if (err) throw err;
+    app.get('/api/going/:id', function(req, res,next) {
+        if (req.isAuthenticated()) {
+            var query = {'barId':req.params.id};
+            var update = {$push: {'users': req.user.twitter.id}};
             
-            if(!docs) {
-                var newAttend = new Bar({
-                    barId   : req.params.id,
-                    users   :                                   /// here be NOT DONE
-                });
-                newAttend.save(function(err){
-                    if(err) throw err;
-                    console.log('added');
-                });
-            }
-            console.log(docs);
-        });
+            var newNum = 0;
+            
+            Bar.findOneAndUpdate(query,update,function(err,docs) {
+    	        if (err) throw err;
+                
+                if(docs == null) {
+                    var newAttend = new Bar({
+                        barId   : req.params.id,
+                        users: [req.user.twitter.id]
+                    });
+                    newAttend.save(function(err){
+                        if(err) throw err;
+                        console.log('new place created');
+                    });
+                }
+                console.log(docs.users);
+                newNum = docs.users.length+1;
+                res.json({error:false,message:'all OK!',num: newNum});
+            });
+        } else {
+            res.json({error:true,message:'not logged in',num: newNum});
+        }
     });
 
 
@@ -78,7 +87,7 @@ module.exports = function(app, passport) {
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
-        res.redirect('/');
+        res.redirect('/login');
     }
     
   

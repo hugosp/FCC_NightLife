@@ -8,10 +8,15 @@ $(document).ready(function(){
     
     
     $(document).on('click', '.going', function(){
-        var addr = "/api/going/"+$(this).attr('id');
-        console.log(addr);
+        var id = $(this).attr('id')
+        var addr = "/api/going/"+id;
         $.get( addr, function( data ) {
-            console.log('going');
+            console.log(data);
+            if(data.error == true) {
+                alert(data.message);
+            } else {
+                $('#'+id).html(data.num+' going');
+            }
         });
     });
     
@@ -46,4 +51,9 @@ function buildList(data) {
                                 .replace(/{{buttId}}/g, data.businesses[key]["id"]);
     }
     $('#result').html(newHTML);
+    
+    for(var key in data.attends) {
+        var num = data.attends[key]["users"].length;
+        $('#'+data.attends[key]["barId"]).html(num + ' Going') ;
+    }
 }
