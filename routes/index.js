@@ -5,6 +5,7 @@ var Bar     = require('../models/attend');
 
 
 module.exports = function(app, passport) {
+    
     app.get('/', function(req, res) {
         res.render('index');
     });
@@ -16,7 +17,7 @@ module.exports = function(app, passport) {
             res.send(err);
         });
     });
-    
+
     app.get('/api/gps/:location', function(req, res, next) {    
         Bar.find({ }, function(err, ids) {
             if(err) throw err;
@@ -31,16 +32,30 @@ module.exports = function(app, passport) {
         });
     });
 
+
     app.get('/api/going/:id',isLoggedIn, function(req, res,next) {
-        var newAttend = new Bar({
-            barId       : req.params.id,
-            user        : req.user.twitter.id,
+        
+        var query = {'barId':req.params.id};
+        var update = {$push: {'users': {'userId': req.user.twitter.id}}};
+        
+        Bar.findOneAndUpdate(query,update,function(err,docs) {
+	        if (err) throw err;
+            
+            if(!docs) {
+                var newAttend = new Bar({
+                    barId   : req.params.id,
+                    users   :                                   /// here be NOT DONE
+                });
+                newAttend.save(function(err){
+                    if(err) throw err;
+                    console.log('added');
+                });
+            }
+            console.log(docs);
         });
-        newAttend.save(function(err){
-            if(err) throw err;
-            res.redirect('/');
-        })
     });
+
+
 
     // --------------------- HANDLE LOGINS/AUTH ---------------------------- 
     app.get('/login', function(req, res) {
@@ -59,10 +74,13 @@ module.exports = function(app, passport) {
     app.get('/auth/twitter', passport.authenticate('twitter'));
     app.get('/auth/twitter/callback', passport.authenticate('twitter', { successRedirect : '/profile', failureRedirect : '/login' }));
 
-};
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect('/');
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated())
+            return next();
+        res.redirect('/');
+    }
+    
+  
 }
+

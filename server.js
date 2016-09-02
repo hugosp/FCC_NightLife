@@ -37,8 +37,10 @@ app.use(function(req, res, next) {      // send req.user to all routes
   next();
 });
 
+
 //app.use('/', routes);
-require('./routes/index.js')(app,passport);
+require('./routes/index')(app,passport);
+
 
 app.listen(port,function () {
     console.log('Express running on port ' + port);
