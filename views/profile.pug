@@ -2,19 +2,33 @@ extends layout
 
 block content
     .container
-        .top
-            h3 Twitter
-        .row
-            .column
-                p id:
-                p token:
-                p username:
-                p displayName:
-            .column
-                p= user.twitter.id
-                p= user.twitter.token
-                p= user.twitter.username
-                p= user.twitter.displayName
+        if(user.twitter.id)
+            h3 Logged in using Twitter
+            .row
+                .column
+                    p id:
+                    p token:
+                    p username:
+                    p displayName:
+                .column
+                    p= user.twitter.id
+                    p= user.twitter.token
+                    p= user.twitter.username
+                    p= user.twitter.displayName
+        if(user.google.id)
+            h3 Logged in using Google
+            .row
+                .column
+                    p id:
+                    p token:
+                    p username:
+                    p displayName:
+                .column
+                    p= user.google.id
+                    p= user.google.token
+                    p= user.google.email
+                    p= user.google.name
+                    
         .row
             .column
                 h3 You are attending .
