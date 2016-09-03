@@ -10,7 +10,7 @@ var flash       = require('connect-flash');
 var morgan      = require('morgan');
 
 
-require('dotenv').config();
+if(process.env.DEV == "yes") { require('dotenv').config(); }
 require('./config/passport.js')(passport);
 
 var port = process.env.PORT || 4000;
