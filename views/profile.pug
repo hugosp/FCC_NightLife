@@ -6,29 +6,30 @@ block content
             h3 Logged in using Twitter
             .row
                 .column
-                    p id:
-                    p token:
-                    p username:
-                    p displayName:
-                .column
-                    p= user.twitter.id
-                    p= user.twitter.token
-                    p= user.twitter.username
-                    p= user.twitter.displayName
+                    .pref.float-left id:
+                    .pref-value.float-right= user.twitter.id
+                    div.clearfix
+                    .pref.float-left username:
+                    .pref-value.float-right= user.twitter.username
+                    div.clearfix
+                    .pref.float-left displayName:
+                    .pref-value.float-right= user.twitter.displayName
+                    div.clearfix
+
         if(user.google.id)
             h3 Logged in using Google
             .row
-                .column
-                    p id:
-                    p token:
-                    p username:
-                    p displayName:
-                .column
-                    p= user.google.id
-                    p= user.google.token
-                    p= user.google.email
-                    p= user.google.name
-                    
+                 .column
+                    .pref.float-left id:
+                    .pref-value.float-right= user.google.id
+                    div.clearfix
+                    .pref.float-left username:
+                    .pref-value.float-right= user.google.email
+                    div.clearfix
+                    .pref.float-left displayName:
+                    .pref-value.float-right= user.google.name
+                    div.clearfix
+        br
         .row
             .column
                 h3 You are attending .

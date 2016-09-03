@@ -4,12 +4,11 @@ block content
     include ../public/template.html
     .container
         .row
-            .column.column-60
+            .column
                 input(type="text" id="location") 
-            .column.column-40
-                center
-                    button.float-right(id="search") Search
-                    button(id="gps") use GPS
+            .column
+                button.float-right(id="search") Search
+                button(id="gps") use GPS
                     
                 
         .row

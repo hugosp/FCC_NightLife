@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title= title
+        title NightLife
         meta(name='viewport', content='width=device-width, initial-scale=1')
         script(src='/public/jquery-3.1.0.min.js')
         script(src='/public/script.js')
@@ -12,18 +12,15 @@ html
     body
         nav
             ul.nav
-                .float-left
+                li
+                    a(href='/') NiGTHLiFE
+
+                if(user)
                     li
-                        a(href='/') 
-                            h4 NightLife Wohooo
-                .float-right
-                    if(user)
-                        li
-                            a(href='/profile')= user.twitter.username
-                            a(href='/profile')= user.google.name
-                        li
-                            a(href='/logout') Logout
-                    else
-                        li
-                            a(href='/login') Login
+                        a(href='/profile') PROFILE 
+                    li
+                        a(href='/logout') LOGOUT
+                else
+                    li
+                        a(href='/login') LOGIN
         block content

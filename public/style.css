@@ -18,6 +18,10 @@ blockquote {
     margin-top: 20px;
 }
 
+.pref {
+    font-weight: bold;
+}
+
 .card {
     background-color: #F4F5F6;
     list-style: none;
