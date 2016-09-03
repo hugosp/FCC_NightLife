@@ -20,6 +20,7 @@ html
                     if(user)
                         li
                             a(href='/profile')= user.twitter.username
+                            a(href='/profile')= user.google.name
                         li
                             a(href='/logout') Logout
                     else

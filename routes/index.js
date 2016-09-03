@@ -39,22 +39,22 @@ module.exports = function(app, passport) {
         if (req.isAuthenticated()) {
             var query = {'barId':req.params.id};
             var newNum = 0;
-            
+            var userID = req.user.twitter.id || req.user.google.id; 
             Bar.findOne(query,function(err,docs) {
     	        if (err) throw err;
                 if(docs == null) {
                     var newAttend = new Bar({
                         barId   : req.params.id,
-                        users: [req.user.twitter.id]
+                        users: [userID]
                     });
                     newAttend.save(function(err){ if(err) throw err; });
                     newNum = 1;
                 } else {
-                    if(docs.users.indexOf(req.user.twitter.id) !== -1) {
-                        Bar.update(query,{$pull: {users: req.user.twitter.id}}).exec();
+                    if(docs.users.indexOf(userID) !== -1) {
+                        Bar.update(query,{$pull: {users: userID}}).exec();
                         newNum = docs.users.length - 1 ;
                     }else{
-                        Bar.update(query,{$push: {users: req.user.twitter.id}}).exec();
+                        Bar.update(query,{$push: {users: userID}}).exec();
                         newNum = docs.users.length + 1 ;
                     } 
                 }
@@ -67,7 +67,9 @@ module.exports = function(app, passport) {
 
     
     app.get('/profile', isLoggedIn, function(req, res) {
-        Bar.find({users: [req.user.twitter.id]},function(err, docs) {
+        var userID = req.user.twitter.id || req.user.google.id;
+        console.log(userID);
+        Bar.find({users: [userID]},function(err, docs) {
             if(err) throw err;
             res.render('profile',{attend: docs});
         });
