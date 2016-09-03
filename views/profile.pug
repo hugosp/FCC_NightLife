@@ -3,7 +3,7 @@ extends layout
 block content
     .container
         .top
-            h1 Twitter
+            h3 Twitter
         .row
             .column
                 p id:
@@ -15,4 +15,13 @@ block content
                 p= user.twitter.token
                 p= user.twitter.username
                 p= user.twitter.displayName
+        .row
+            .column
+                h3 You are attending .
+                each key in attend
+                    .row
+                        .column
+                            h5= key.barId
+                        .column
+                            button.going(id=key.barId) Cancel visit
         

@@ -38,25 +38,26 @@ module.exports = function(app, passport) {
     app.get('/api/going/:id', function(req, res,next) {
         if (req.isAuthenticated()) {
             var query = {'barId':req.params.id};
-            var update = {$push: {'users': req.user.twitter.id}};
-            
             var newNum = 0;
             
-            Bar.findOneAndUpdate(query,update,function(err,docs) {
+            Bar.findOne(query,function(err,docs) {
     	        if (err) throw err;
-                
                 if(docs == null) {
                     var newAttend = new Bar({
                         barId   : req.params.id,
                         users: [req.user.twitter.id]
                     });
-                    newAttend.save(function(err){
-                        if(err) throw err;
-                        console.log('new place created');
-                    });
+                    newAttend.save(function(err){ if(err) throw err; });
+                    newNum = 1;
+                } else {
+                    if(docs.users.indexOf(req.user.twitter.id) !== -1) {
+                        Bar.update(query,{$pull: {users: req.user.twitter.id}}).exec();
+                        newNum = docs.users.length - 1 ;
+                    }else{
+                        Bar.update(query,{$push: {users: req.user.twitter.id}}).exec();
+                        newNum = docs.users.length + 1 ;
+                    } 
                 }
-                console.log(docs.users);
-                newNum = docs.users.length+1;
                 res.json({error:false,message:'all OK!',num: newNum});
             });
         } else {
@@ -64,18 +65,25 @@ module.exports = function(app, passport) {
         }
     });
 
-
-
+    
+    app.get('/profile', isLoggedIn, function(req, res) {
+        Bar.find({users: [req.user.twitter.id]},function(err, docs) {
+            if(err) throw err;
+            res.render('profile',{attend: docs});
+        });
+    });
+    
+    
+    
+    
+    
     // --------------------- HANDLE LOGINS/AUTH ---------------------------- 
+    
     app.get('/login', function(req, res) {
         res.render('login', { message: req.flash('loginMessage') }); 
     });
 
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile');
-    });
-
-    app.get('/logout', function(req, res) {
+   app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
@@ -89,7 +97,5 @@ module.exports = function(app, passport) {
             return next();
         res.redirect('/login');
     }
-    
-  
 }
 
